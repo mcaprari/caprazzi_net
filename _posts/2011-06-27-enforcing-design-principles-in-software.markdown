@@ -6,14 +6,24 @@ date: 2011-06-27 17:33:31 +00:00
 wordpress_url: http://caprazzi.net/?p=707
 ---
 
-Before starting to write a new piece of software, I come up with some simple design principles that I think will do some good.For smallish projects I just keep the principles in mind and behave so, but for bigger stuff I try to actively enforce the policy.
+Before starting to write a new piece of software, I come up with some simple design principles that I think will do some good.
+For smallish projects I just keep the principles in mind and behave so, but for bigger stuff I try to actively enforce the policy.
 
 
-<blockquote>"In theory, theory and practice are the same. In practice, they are not."  --  Lawrence Peter Berra</blockquote>
+<blockquote>"In theory, theory and practice are the same. In practice, they are not."
+<br/>
+    --  Lawrence Peter Berra</blockquote>
 
-In theory if you state your principle and you stick to it, there will be no need for enforcement; **I have [a friend](http://blog.acaro.org/) that has never written a single bug in his life.** It's true I swear. For me it's not quite so, and I actually do some damage sometimes, so I benefit from having some safety checks. Actively checking rules makes it difficult to take shortcuts like "I'll fix this later" or "this will never be null right?". Also, if a violation happens and checks are in place, it will be easier to debug the problem and fix the cause. With well established check policies, each method will end up checking the input from each other method - policy checks well enforced can eradicate some classes of bugs, much like a vaccine. 
+Actively "defending" your code from your own mistakes is controversial;
+In theory if you state your principle and you stick to it, there will be no need for enforcement. A [friend of mine](http://blog.acaro.org/) **has never written a single bug in his life.** It's true I swear. He clearly can go without a safety net.
 
-The principle I use the most is “nulls are no good”. It helps to cut the number of null checks and to rule out nullpointer exceptions, that are always a pain because a they tend to happen far from where the assignment has happened.
+Another friend added that proper code testing would make policy enforcement useless.
+ 
+I actually do bugs sometimes, and my tests could be leaky sometimes, so I benefit from having some safety checks. Actively checking rules makes it difficult to take shortcuts like "I'll fix this later" or "this will never be null right?". Well established check policies, much like widely used vaccines, have the potential of eradicating some categories of bugs. 
+
+## No country for nulls
+
+The principle I use the most is *nulls are no good*. Ideally one would change the language and remove the concept of nullability, avidoing the need for nullpointer exceptions (NPE) and nullchecks. NPE are often a pain because a they tend to happen far from where the assignment has happened.
 
 To enforce a principle, you have to make up a rule and implement it in your code. At first the best rule to implement this principle may seem "``always check for nullity``", but I'll try to show that in this case, just half of the rule, "``check for nullity before assigning``" is just enough to cover your ass and is less verbose.
 
@@ -25,12 +35,10 @@ class Balloons {
 	void addBalloon(Balloon balloon) {
 		this.balloons.add(balloon);
 	}
-
 	void pinchAll() {
 		for (Balloon b : balloons)
                    b.pinch();
 	}
-
 	public static void main(String[] args) {
 		Balloons balloons = new Balloons();
 		balloons.addBalloon(new Balloon());
@@ -198,7 +206,6 @@ public class Protect {
 				throw new IllegalArgumentException("Object in position " + i + " is null");
 			if (objects[i] instanceof String && ((String) objects[i]).trim().length() == 0)
 				throw new IllegalArgumentException("String in position " + i + " is null or empty");
-
 		}
 	}				
 

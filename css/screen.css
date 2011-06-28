@@ -15,9 +15,16 @@ html, body {
   height: 100%;
 }
 
+blockquote {
+    margin: 1em;
+    font-style: oblique;
+    font-size: 120%;
+}
+
 body {
   background-color: white;
   font: 13.34px helvetica, arial, clean, sans-serif;
+font-family: adobe-garamond-pro;
   *font-size: small;
   text-align: center;
 }
@@ -149,14 +156,14 @@ ul.posts {
 /*****************************************************************************/
 
 #post {
-
+	font-size: 110%;
 }
 
   /* standard */
 
   #post pre {
     border: 1px solid #ddd;
-    background-color: #eef;
+    background-color: #efefef;
     padding: 0 .4em;
   }
 
@@ -167,10 +174,17 @@ ul.posts {
 
   #post code {
     border: 1px solid #ddd;
-    background-color: #eef;
-    font-size: 95%;
+    background-color: #efefef;
+    font-size: 70%;
     padding: 0 .2em;
+    font-weight: normal;
+    line-height: 6px;
   }
+
+
+#post code * {
+line-height: 6px;
+}
 
     #post pre code {
       border: none;
