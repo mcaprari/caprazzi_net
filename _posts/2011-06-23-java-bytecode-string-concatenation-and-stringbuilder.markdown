@@ -7,11 +7,9 @@ wordpress_url: http://caprazzi.net/?p=684
 ---
 In my [earlier post](http://caprazzi.net/posts/evaluating-relative-speed-of-java-digest-hashing-algorithms/) I was making a fuss over picking the faster hash algorithm, when I realised I was using + to concatenate strings. Should I always use a [StringBuilder](http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html)? Should I care even for small strings? Heck, if I use the ``StringBuilder`` I'll surely create one extra object anyway...
 
-I tried some variations of the test and I did not find any performance difference when comparing simple concatenation to using the string builder. Even if trying with bigger strings and other combinations, I could see no difference. I got curious and wrote a very simple class and looked resulting bytecode: This java code:
+I tried some variations of the test and I did not find any performance difference when comparing simple concatenation to using the string builder, even if trying with bigger strings and other silly combinations. I got curious and wrote a very simple class and looked at the resulting bytecode.
 
-{% highlight java%}
-{% endhighlight %}
-
+This java code:
 {% highlight java%}
 public static void main(String[] args) {
 	String cip = "cip";
@@ -63,9 +61,10 @@ Generates this bytecode (see how the two concatenation styles generate the very 
     RETURN
 {% endhighlight %}
 
-The compiler has transformed "``cip+ciop``" into "``new StringBuilder(cip).append(ciop).toString()``". In other words, "+" is effectively a shorthand for the more verbose ``StringBuilder`` idiom.
+The compiler has transformed "cip+ciop" into "new StringBuilder(cip).append(ciop).toString()". 
+In other words, **"+" is effectively a shorthand for the more verbose ``StringBuilder`` idiom.**
 
-The compiler will do same trick for ``cip + "ciop"`` and ``"cip" + ciop``. (In case you wonder, ``"cip" + "ciop"`` will just be compiled as ``"cipciop"``).
+The compiler will do same trick for cip + "ciop" and "cip" + ciop. (In case you wonder, "cip" + "ciop" will just be compiled as "cipciop").
 
 This is great, but beware, the compiler is not a worthy substitute for you thinking at what you do. 
 
