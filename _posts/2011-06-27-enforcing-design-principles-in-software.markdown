@@ -158,89 +158,50 @@ code I was enforcing all the calls to a class to happen from one single
 thread. In another app that was using some simple spatial geometry I enforced 
 all the ints in some classes to be positive.
 
-My Protect class is a very crude piece of code, but it does the job and it's easy to understand.
+My Protect class is a very crude piece of code, but it does the job and it's easy to understand. Note how empty strings are treated as nulls.
 
 {% highlight java%}
-/**
- * Set of methods to enforce not nullity of objects and not emptiness of strings
- * @author Matteo Caprari
- */
 public class Protect {
-
 	static void valid(Object object) {
 		if (object == null)
 			throw new IllegalArgumentException("Object in position 0 is null");
 	}		
-
 	static void valid(String string) {
 		if (string == null || string.trim().length() == 0)
-			throw new IllegalArgumentException("String in position 0 is null or empty");
+			throw new IllegalArgumentException("Str in pos 0 is null or empty");
 	}
-
 	static void valid(String a, String b) {
 		if (a == null || a.trim().length() == 0)
-			throw new IllegalArgumentException("String in position 0 is null or empty");
+			throw new IllegalArgumentException("Str in pos 0 is null or empty");
 		if (b == null || b.trim().length() == 0)
-			throw new IllegalArgumentException("String in position 1 is null or empty");
+			throw new IllegalArgumentException("Str in pos 1 is null or empty");
 	}
-
-	static void valid(String a, String b, String c) {
-		if (a == null || a.trim().length() == 0)
-			throw new IllegalArgumentException("String in position 0 is null or empty");
-		if (b == null || b.trim().length() == 0)
-			throw new IllegalArgumentException("String in position 1 is null or empty");
-		if (c == null || c.trim().length() == 0)
-			throw new IllegalArgumentException("String in position 2 is null or empty");
-	}
-
 	static void valid(String... strings) {
 		for (int i=0; i<strings.length; i++) {
 			if (strings[i] == null || strings[i].trim().length() == 0)
-				throw new IllegalArgumentException("String in position " + i + " is null or empty");
+				throw new IllegalArgumentException("Str in pos " + i + " is null or empty");
 		}
 	}
-
 	static void valid(Object a, Object b) {
 		if (a == null)
-			throw new IllegalArgumentException("Object in position 0 is null or empty");
+			throw new IllegalArgumentException("Obj in pos 0 is null or empty");
 		if (b == null)
-			throw new IllegalArgumentException("Object in position 1 is null or empty");
-
+			throw new IllegalArgumentException("Obj in pos 1 is null or empty");
 		if (a instanceof String && ((String) a).trim().length() == 0)
-			throw new IllegalArgumentException("String in position 0 is null or empty");
-
+			throw new IllegalArgumentException("Str in pos 0 is null or empty");
 		if (b instanceof String && ((String) b).trim().length() == 0)
-			throw new IllegalArgumentException("String in position 1 is null or empty");
+			throw new IllegalArgumentException("Str in pos 1 is null or empty");
 	}
-
-	static void valid(Object a, Object b, Object c) {
-		if (a == null)
-			throw new IllegalArgumentException("Object in position 0 is null or empty");
-		if (b == null)
-			throw new IllegalArgumentException("Object in position 1 is null or empty");
-		if (c == null)
-			throw new IllegalArgumentException("Object in position 2 is null or empty");
-
-		if (a instanceof String && ((String) a).trim().length() == 0)
-			throw new IllegalArgumentException("String in position 0 is null or empty");
-
-		if (b instanceof String && ((String) b).trim().length() == 0)
-			throw new IllegalArgumentException("String in position 1 is null or empty");
-
-		if (c instanceof String && ((String) c).trim().length() == 0)
-			throw new IllegalArgumentException("String in position 3 is null or empty");
-	}
-
+	
 	// beware, this is maybe 10 times slower than the non-varargs version
 	static void valid(Object... objects) {
 		for (int i=0; i<objects.length; i++) {
 			if (objects[i] == null)
-				throw new IllegalArgumentException("Object in position " + i + " is null");
+				throw new IllegalArgumentException("Obj in pos " + i + " is null");
 			if (objects[i] instanceof String && ((String) objects[i]).trim().length() == 0)
-				throw new IllegalArgumentException("String in position " + i + " is null or empty");
+				throw new IllegalArgumentException("Str in pos " + i + " is null or empty");
 		}
 	}				
-
 }
 {% endhighlight %}
 
