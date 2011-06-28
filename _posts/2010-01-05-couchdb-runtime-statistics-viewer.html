@@ -1,0 +1,41 @@
+--- 
+wordpress_id: 440
+layout: post
+title: Couchdb runtime statistics viewer
+date: 2010-01-05 14:16:49 +00:00
+wordpress_url: http://caprazzi.net/?p=440
+---
+<p>
+	CouchDB comes with a runtime statistics module that lets you inspect how CouchDB performs.
+	The statistics module collects metrics like requests per second, request sizes and a multitude of other useful stuff. <em>From <a href="http://wiki.apache.org/couchdb/Runtime_Statistics">Couchdb wiki</a></em>.
+	
+	I created a simple app that uses <a href="http://timepedia.org/chronoscope/" title="timepedia chronoscope">chronoscope</a> to display how some metrics change over time.
+	
+	Jump to the <a href="http://caprazzi.net:5984/stats/_design/app/_list/table_multi/http_requests_hits_by_method?group_level=4" title="couchdb runtime stats viewer">demo</a>, go to the <a href="http://github.com/mcaprari/couchdb-stats" title="couchdb runtime stats source">source</a> or use the <a href="http://caprazzi.net:5984/stats/_design/app/docs/index.html" title="couchdb runtime stats documentation">docs</a>.
+	
+	<a title="couchdb runtime stats viewer" href="http://caprazzi.net:5984/stats/_design/app/_show/index/bogus"><img src="http://caprazzi.net/wp-content/uploads/2010/01/couchdb_stats_screenshot.png" alt="Couchdb Stats Screenshot"></a>
+
+</p>
+
+<h2>Install</h2>
+<p>
+	couchdb-stats is a simple couchapp plus a python script that hits /_stats and stores the results in couchdb server
+	
+	<em>Attention: this app is tested with Couchdb 0.11.x, not yet released at the time of this post.</em>
+</p>
+<pre class="term">
+$ git clone git://github.com/mcaprari/couchdb-stats.git
+$ cd couchdb-stats
+$ couchapp push app http://localhost:5984/stats
+$ python stats_copy.py localhost localhost stats 60
+</pre>
+<p>
+	Couchdb reports metrics since server start or of the last 1, 5 or 15 minutes. There is no way to see yesterday's stats. To do that, we need to keep hitting /_stats and store results in a couchdb database.
+	
+	<a href="http://github.com/mcaprari/couchdb-stats/blob/master/stats_copy.py" title="python couchdb _stats  consumer">stats_copy.py</a> does just that.
+</p>
+<p>
+	At this point it's possible to write several views, each focused on a particular metric. See the <a href="http://caprazzi.net:5984/stats/_design/app/docs/index.html" title="couchdb runtime stats documentation">documentation</a> for more details.
+<p>
+	
+<p><strong>questions, comments and suggestions welcome</p></strong>
