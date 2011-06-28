@@ -19,8 +19,8 @@ in theory if you stick to a principle, there is no need for enforcement. A [frie
 
 Another friend added that proper code testing makes enforcement useless.
 
-I hate to admit it, but I do do bugs sometimes, and looking back, some of my 
-tests were not so great after all. I've learnt that I'm a better coder 
+I hate to admit it, but I do do bugs sometimes, and some tests I wrote turned 
+out to be not so great. I've learnt that I'm a better coder 
 when there are some safety checks. One immediate benefit is that checking 
 rules makes me less likely to cut corners "just this once". 
 
@@ -135,14 +135,13 @@ immutable class: you _know_ that all instances of that class do not contain
 nulls
 
 {% highlight java%}
-// rock solid bunga bunga!!
+// a bunga bunga you can trust
 public class BungaBunga {
 	private final String secretLocation;
 	public BungaBunga(String secretLocation) {
 		Protect.valid(secretLocation);
 		this.secretLocation= secretLocation;
 	}
-
 	// ....
 }
 {% endhighlight %}
