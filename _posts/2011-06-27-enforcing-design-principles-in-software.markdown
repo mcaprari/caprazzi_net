@@ -18,7 +18,7 @@ Actively "defending" your code from your own mistakes is controversial;
 in theory if you stick to a principle, there is no need for enforcement. A [friend of mine](http://blog.acaro.org/) **has never written a single bug in his life.** (It's true, I swear). He clearly can go without a safety net.
 
 Another friend added that proper code testing makes enforcement useless.
- 
+
 I hate to admit it, but I do do bugs sometimes, and looking back, some of my 
 tests were not so great after all. I've learnt that I'm a better coder 
 when there are some safety checks. One immediate benefit is that checking 
@@ -158,7 +158,6 @@ code I was enforcing all the calls to a class to happen from one single
 thread. In another app that was using some simple spatial geometry I enforced 
 all the ints in some classes to be positive.
 
-
 My Protect class is a very crude piece of code, but it does the job and it's easy to understand.
 
 {% highlight java%}
@@ -243,8 +242,7 @@ public class Protect {
 	}				
 
 }
-
 {% endhighlight %}
 
-
-Thanks for reading this far
+Thanks for reading this far, and always test your code, better if before 
+writing it.
