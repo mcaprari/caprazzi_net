@@ -53,7 +53,7 @@ module Jekyll
          }.delete_if { |k,v| v.nil? || v == '' }.to_yaml
 
         # Write out the data and content to file
-        File.open("_posts/#{name}", "w") do |f|
+        File.open("_posts_markdown/#{name}", "w") do |f|
           f.puts data
           f.puts "---"
           f.puts content
