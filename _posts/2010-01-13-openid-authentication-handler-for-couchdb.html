@@ -1,0 +1,77 @@
+--- 
+wordpress_id: 496
+layout: post
+title: openid authentication handler for couchdb
+date: 2010-01-13 17:09:09 +00:00
+wordpress_url: http://caprazzi.net/?p=496
+---
+<p>Over at <a href="http://github.com/mcaprari/couchdb-openid">couchdb-openid</a>, there is my implementation of OpenID version 1.1 for couchdb, based on http://github.com/etnt/eopenid</p>
+<p>
+It seems fairly stable but has only been tested against myopenid.com, so it is definitely not production ready. 
+</p>
+<p>
+	I plan to add support for openid 2.0 and to make couchdb work as openid endpoint.
+</p>
+<p><strong>
+The <a href="http://github.com/mcaprari/couchdb-openid/blob/master/src/couch_httpd_openid_auth.erl">handler code</a> would love to be reviewed by someone with some erlang and couchdb experience.
+</strong></p>
+
+<h2>Demo</h2>
+<p>
+Try the <a href="http://couch.caprazzi.net/fortytwo/_design/fortytwo/_show/auth">login page at fortytwo</a>.
+</p>
+
+<h2>Quick install:</h2>
+
+<ul>
+<li> cd couchdb_install_path/lib/couchdb/erlang/lib/</li>
+
+<li> git clone git://github.com/mcaprari/couchdb-openid.git</li>
+<li> cd couchdb-openid</li>
+<li> make</li>
+<li> edit local.ini [httpd]/authentication_handlers (or do it form futon) and
+add {couch_httpd_openid_auth, openid_authentication_handler} <strong>BEFORE the default handlers</strong></li>
+<li> restart couchdb</li>
+</ul>
+
+
+<h2>Quick test:</h2>
+
+<p>http://caprazzi.net:5984/_session?openid=auth-request&amp;openid-identifier=&lt;your_openid&gt;</p>
+
+<h2>What to expect:</h2>
+
+<p>Only openid 1.1 is supported and it has only been tested with myopenid.com as openid provider.</p>
+
+<p>When a client hits the initiation url (above), it is redirected to the openid provider
+and prompted to authorise the association.</p>
+<p>Then it's redirected back to the couch and</p>
+<ul>
+<li>if the client <strong>is not logged in</strong> in and supplies a <strong>new openid</strong>, a new user is created with username=openid and the client is logged in</li>
+<li> if the client <strong>is not logged in</strong> in and supplies a <strong>mapped openid</strong>,
+the client is logged in as the mapped user</li>
+
+<li> if the client <strong>is logged in</strong> and supplies a <strong>new openid</strong>,
+the supplied openid is added to current user, and the client keeps the current login</li>
+<li> if the client <strong>is logged in</strong> and supplies a <strong>mapped openid</strong>
+
+<ul>
+
+<li>if openid is mapped to the <strong>same user</strong>, the client keeps the current login</li>
+<li>if openid is mapped to a <strong>different user</strong>, the operation fails 400</li>
+</ul>
+</li>
+<li> if user <strong>is logged in AS ADMIN</strong> and supplies a <strong>new openid</strong> the operation fails 500</li>
+
+</ul>
+
+
+<h2>TODO:</h2>
+
+<ul>
+<li> try erl_openid for openid 2.0 support</li>
+<li> decide if it is wise to map openids to admins (if at all possible)</li>
+<li> cleanup ets table after auth confirm (or maybe find an alternative to ets tables)</li>
+<li> reduce dependence from eopenid (dict access routines at least)</li>
+
+</ul>

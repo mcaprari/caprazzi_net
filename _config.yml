@@ -1,5 +1,5 @@
 auto: false
-server: true
+server: false
 markdown: rdiscount
 pygments: true
 permalink: /posts/:title
