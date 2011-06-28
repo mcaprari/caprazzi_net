@@ -1,8 +1,0 @@
---- 
-wordpress_id: 589
-layout: post
-title: Most Advanced Yet Acceptable
-date: 2010-05-18 09:06:08 +00:00
-wordpress_url: http://caprazzi.net/?p=589
----
-[Raymond Loewy](http://en.wikipedia.org/wiki/Raymond_Loewy) believed that<blockquote>The adult public's taste is not necessarily ready to accept the logical solutions to their requirements if the solution implies too vast a departure from what they have been conditioned into accepting as the norm.</blockquote>Quite a statement. He synthesised  his observation in a principle and further compressed it in acronym:** Most Advanced Yet Acceptable - MAYA**He was a radical, forward thinker so I guess he was constantly refitting his ideas into the Acceptable yet Advanced. As a industrial designer, he was trying to have his designs mass produced and sold to actual people. He succeeded and his designs reveal the tension between the future rolling in and the people holding back.Of course,  it's common sense. Had he designed something Unacceptable, his biography would have been different.But MAYA is also a very real constraint, the sort that makes or kills your proposition. No matter what you are selling to whom: a new song, a new recipe, a new software; to your fans, to your girlfriend, to your boss. Being advanced is not enough, it must be acceptable. Not enough advanced, it is not interesting.You can ignore the principle and be a scientist. Or never challenge it and be an engineer or just be boring. Some would say that a [sciengineer](http://blog.acaro.org/entry/what-s-a-sciengineer-aka-science-vs-engineering) will balance his act and live up to the MAYA principle. As a software developer and technology entusiast I find it hard to hit the sweet spot.

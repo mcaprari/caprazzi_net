@@ -1,8 +1,0 @@
---- 
-wordpress_id: 10
-layout: post
-title: "Above the Clouds: The View from Berkeley"
-date: 2009-08-03 11:34:00 +00:00
-wordpress_url: http://caprazzi.net/?p=10
----
-[RAD Lab](http://radlab.cs.berkeley.edu/) released [Above the Clouds: The View from Berkeley](http://d1smfj0g31qzek.cloudfront.net/abovetheclouds.pdf) (pdf) an high-level overview of the cloud. It's great read for anyone interested in the subject, no need to be involved in software development.<br /><br />It's the best text on the subject that I've read so far: the authors start and stay above the cloud,  avoid stepping on technical traps, yet they never become too theoretical.<br /><br />The paper will tell you what the cloud is and what is not, how it fits in today's IT ecology. It also describes the "economics of the cloud" with no-nonsense formulas and pragmatic statements, making sensible assumptions and predictions.<br /><br />If anything, I think it underestimates the impact of private clouds for small and medium organizations in the future. Designing your data center as cloud buys you a greater potential for scalability and flexibility.<br /><br />Add that even a tiny company benefits from exposing its data layer as a service with domain specific logic (that is, a SaaS with an API), and that couples perfectly with a cloud architecture.<br /><br />This is straightforward only for new organizations; a massive paradgim switch in an existing company could well kill it...

@@ -5,7 +5,9 @@ title: Enforcing design principles in software
 date: 2011-06-27 17:33:31 +00:00
 wordpress_url: http://caprazzi.net/?p=707
 ---
+
 Before starting to write a new piece of software, I come up with some simple design principles that I think will do some good.For smallish projects I just keep the principles in mind and behave so, but for bigger stuff I try to actively enforce the policy.
+
 
 <blockquote>"In theory, theory and practice are the same. In practice, they are not."  --  Lawrence Peter Berra</blockquote>
 
