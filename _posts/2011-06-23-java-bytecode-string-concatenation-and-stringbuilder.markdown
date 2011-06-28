@@ -5,7 +5,7 @@ title: Java bytecode, string concatenation and StringBuilder
 date: 2011-06-23 10:08:43 +00:00
 wordpress_url: http://caprazzi.net/?p=684
 ---
-In my [earlier post](http://caprazzi.net/posts/evaluating-relative-speed-of-java-digest-hashing-algorithms/) I was making a fuss over picking the faster hash algorithm, when I realised I was using + to concatenate strings. Should I always use a ``[StringBuilder](http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html)``? Should I care even for small strings? Heck, if I use the ``StringBuilder`` I'll surely create one extra object anyway...
+In my [earlier post](http://caprazzi.net/posts/evaluating-relative-speed-of-java-digest-hashing-algorithms/) I was making a fuss over picking the faster hash algorithm, when I realised I was using + to concatenate strings. Should I always use a [StringBuilder](http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html)? Should I care even for small strings? Heck, if I use the ``StringBuilder`` I'll surely create one extra object anyway...
 
 I tried some variations of the test and I did not find any performance difference when comparing simple concatenation to using the string builder. Even if trying with bigger strings and other combinations, I could see no difference. I got curious and wrote a very simple class and looked resulting bytecode: This java code:
 
