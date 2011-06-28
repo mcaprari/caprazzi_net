@@ -5,9 +5,16 @@ title: Java bytecode, string concatenation and StringBuilder
 date: 2011-06-23 10:08:43 +00:00
 wordpress_url: http://caprazzi.net/?p=684
 ---
-In my [earlier post](http://caprazzi.net/posts/evaluating-relative-speed-of-java-digest-hashing-algorithms/) I was making a fuss over picking the faster hash algorithm, when I realised I was using + to concatenate strings. Should I always use a [StringBuilder](http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html)? Should I care even for small strings? Heck, if I use the ``StringBuilder`` I'll surely create one extra object anyway...
+In my [earlier 
+post](http://caprazzi.net/posts/evaluating-relative-speed-of-java-digest-hashing-algorithms/) 
+I was making a fuss over picking the faster hash algorithm, when I realised I 
+was using + to concatenate strings. Should I always use a 
+[StringBuilder](http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html)? Should I care even for small strings? Heck, if I use the``StringBuilder`` I'll be creating one extra object anyway?
 
-I tried some variations of the test and I did not find any performance difference when comparing simple concatenation to using the string builder, even if trying with bigger strings and other silly combinations. I got curious and wrote a very simple class and looked at the resulting bytecode.
+I tried some variations of the test and I did not find any performance 
+difference when comparing simple concatenation to using the string builder, 
+even when trying with bigger strings and other silly combinations. I got
+curious and wrote a very simple class and looked at the resulting bytecode.
 
 This java code:
 {% highlight java%}
@@ -19,7 +26,7 @@ public static void main(String[] args) {
 }
 {% endhighlight %}
 
-Generates this bytecode (see how the two concatenation styles generate the very same code):
+Generates this - see how the two concatenation styles lead to the very same bytecode:
 {% highlight java%}
  L0
     LINENUMBER 23 L0
@@ -87,22 +94,22 @@ While of course the most efficient way is
 String big = new StringBuilder("both").append(cip).append(ciop).toString();
 {% endhighlight %}
 
-Now of course nobody in his right mind would ever write any of the above, but here is more common pattern:
 
+One more example:
 {% highlight java%}
 String boo = "both";
 for (int i=1; i<100; i++)
      boo += cip + ciop;
 {% endhighlight %}
 
-Now the compiler will do the obvious thing and instantiate one new StringBuilder at each iteration:
+Now the compiler will do the obvious thing and instantiate one new StringBuilder at each iteration, as if I had written
 {% highlight java%}
 String boo = "both";
 for (int i=1; i<100; i++)
      boo += new StringBuilder(boo).append(cip).append(ciop).toString();
 {% endhighlight %}
 
-In this case it is best to use this idiom:
+For better efficiency, I should have done this:
 {% highlight java%}
 StringBuilder foo = new StringBuilder("both");
 for (int i=1; i<2; i++)
@@ -110,5 +117,5 @@ for (int i=1; i<2; i++)
 String boo = foo.toString();
 {% endhighlight %}
 
-``-teo``
+-teo
 
