@@ -19,27 +19,27 @@ in theory if you stick to a principle, there is no need for enforcement. A [frie
 
 Another friend added that proper code testing makes enforcement useless.
  
-I hate to admit that I do bugs sometimes, and that looking back, some of my 
-tests were not so great. So, I've learnt that I benefit from having some 
-safety checks. One immediate benefit is that checking rules makes me less 
+I hate to admit it, but I do do bugs sometimes, and looking back, some of my 
+tests were not so great after all. So, I've learnt that I benefit from having 
+some safety checks. One immediate benefit is that checking rules makes me less 
 likely to cut corners "just this once". 
 
-More deeply, I find that  established check policies, much like widely used vaccines, have the potential of eradicating some categories of bugs. 
+More deeply, I find that established check policies, much like widely used vaccines, have the potential to eradicate some categories of bugs. 
 
 ## No country for nulls
 
 The principle I use most frequently is *nulls are no good*. Nulls are the 
-source of Null Pointer eExceptions (NPE) and null checks. NPEs are a pain
-because they tend to happen far from where the assignment has happened, and 
+source of Null Pointer Exceptions (NPE) and null checks. NPEs are a pain
+because they tend to happen far from where the assignment has happened, while 
 null checks are just plain ugly. *If I could, I would change the language and 
 remove the concept of nullability*
 
 Failing that, I have to turn the principle in a rule and implement it in the 
-code. At first the best rule may seemb "``always check for nullity``", but 
-I'll try to  show that in this case it is enough to implement half of the rule 
+code. At first the best rule may seem "``always check for nullity``", but 
+I'll show that in this case it is enough to implement half of the rule 
 to cover your ass: "never assign a null"
 
-## never assign a null
+## Never assign a null
 
 Let’s begin with an example - everybody likes the bang of a popping balloon, so I have implemented a balloons collection that allows to pop many balloons at once for a bigger, better bang.
 
@@ -65,7 +65,8 @@ class Balloons {
 Not only this program will end in NPE, but also the stack trace will not clarify were the null comes from:
 
     Exception in thread "main" java.lang.NullPointerException
-    at Balloons.pinchAll(Balloons.java:16)at Balloons.main(Balloons.java:23)
+    at Balloons.pinchAll(Balloons.java:16)
+	at Balloons.main(Balloons.java:23)
 
 To get rid of the NPE, you can just add a nullcheck inside pinchAll.
 
@@ -90,8 +91,10 @@ void addBalloon(Balloon balloon) {
 
 Much better now: the output will actually help to pin down the cause of the problem.
 
-	Exception in thread "main" java.lang.IllegalArgumentException: balloon must not be null
-	at Balloons.addBalloon(Balloons.java:10)at Balloons.main(Balloons.java:22)
+	Exception in thread "main" java.lang.IllegalArgumentException: 
+		balloon must not be null
+	at Balloons.addBalloon(Balloons.java:10)
+	at Balloons.main(Balloons.java:22)
 
 Additionally, since you have protected your code so that balloons will never 
 contain a null, we can remove the check in pinchAll() making the code a little 
@@ -150,22 +153,13 @@ It’s not much but they may add up, so in you may want to skip the checks in
 some regions of your codes, especially method invocations in loops. As most 
 things in life, don't overdo it.
 
-It's possible to add more complex checks or other kinds. In a recent app that 
-was using some simple spatial geometry I enforced all the ints to be positive, 
-because I knew there was no space for negative values in the app.
+It's possible to add more complex checks or other kinds. In a recent piece of 
+code I was enforcing all the calls to a class to happen from one single 
+thread. In another app that was using some simple spatial geometry I enforced 
+all the ints in some classes to be positive.
 
-If you want to get rid of the checks before release to production, it's quite 
-easy to comment out all the invocations with a script, but this may be brittle 
-and make debugging the code a bit more complex. If you are into this kind if 
-things, it is possible to enforce rules transparently using AspectJ and some 
-annotations. This has the benefit of making the code cleaner, but you loose 
-the "documentation" side of the checks.
 
-[Note: in C# it’s easy to compile methods only in debug builds, using 
-[Conditional("DEBUG")] ]
-
-My Protect class. As you can see it is a very crude piece of code, but it does 
-the job.
+My Protect class is a very crude piece of code, but it does the job and it's easy to understand.
 
 {% highlight java%}
 /**
