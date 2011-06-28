@@ -10,7 +10,18 @@ layout: default
 {{ content }}
 </div>
 
+<style type="text/css">
+</style>
+
+<div style="float:left"><g:plusone size="small"></g:plusone></div>
+<div style="float:left">
+<div id="fb-root"></div><fb:like href="http://caprazzi.net/{{ page.url }}" send="true" layout="button_count" width="450" show_faces="true" font=""></fb:like>
+</div>
+<div style="float:left">
+<a href="http://twitter.com/share" style="float:left" class="twitter-share-button" data-count="horizontal" data-via="caprazzi_net">Tweet</a></div>
+
 <div id="disqus_thread"></div>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'caprazzo'; // required: replace example with your forum shortname
@@ -26,7 +37,7 @@ layout: default
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <div id="related">
@@ -37,3 +48,43 @@ layout: default
     {% endfor %}
   </ul>
 </div>
+
+<!-- Place this tag in your head or just before your close body tag -->
+<script src="http://connect.facebook.net/en_US/all.js#appId=125592400784148&amp;xfbml=1"></script>
+
+<script type="text/javascript">
+(function() {
+var s = document.createElement('SCRIPT');
+var c = document.getElementsByTagName('script')[0];
+s.type = 'text/javascript';
+s.async = true;
+s.src = 'http://platform.twitter.com/widgets.js';
+c.parentNode.insertBefore(s, c);
+})();
+</script >
+
+<script>
+(function(d, t) {
+var g = d.createElement(t),
+	s = d.getElementsByTagName(t)[0];
+g.async = true;
+g.src = 'https://apis.google.com/js/plusone.js';
+s.parentNode.insertBefore(g, s);
+})(document, 'script');
+</script>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({appId: '125592400784148', status: true, cookie: true,
+             xfbml: true});
+  };
+  (function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+  }());
+</script>
+
+
+<!-- Place this tag where you want the +1 button to render -->
