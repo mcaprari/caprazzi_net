@@ -71,6 +71,8 @@ Generates this - see how the two concatenation styles lead to the very same byte
 The compiler has transformed "cip+ciop" into "new StringBuilder(cip).append(ciop).toString()". 
 In other words, **"+" is effectively a shorthand for the more verbose ``StringBuilder`` idiom.**
 
+(btw, this is documented in [String javacode](http://download.oracle.com/javase/1.4.2/docs/api/java/lang/String.html))
+
 The compiler will do same trick for cip + "ciop" and "cip" + ciop. (In case you wonder, "cip" + "ciop" will just be compiled as "cipciop").
 
 This is great, but beware, the compiler is not a worthy substitute for you thinking at what you do. 
@@ -116,6 +118,48 @@ for (int i=1; i<2; i++)
     foo.append(cip).append(ciop);
 String boo = foo.toString();
 {% endhighlight %}
+
+**UPDATE:**
+
+Following Christian comment below, I had a look at how string.concat is handled:
+
+{% highlight java%}
+String foo = "foo";
+String bar = "bar";
+String baz = "baz";
+
+String foobarbaz = foo.concat(bar).concat(baz);		
+String foobarbazX = foo + bar + baz;
+{% endhighlight %}
+
+Gets compiled in:
+
+{% highlight java%}
+// .. snip
+   LINENUMBER 20 L3
+    ALOAD 1
+    ALOAD 2
+    INVOKEVIRTUAL java/lang/String.concat(Ljava/lang/String;)Ljava/lang/String;
+    ALOAD 3
+    INVOKEVIRTUAL java/lang/String.concat(Ljava/lang/String;)Ljava/lang/String;
+    ASTORE 4
+   L4
+    LINENUMBER 21 L4
+    NEW java/lang/StringBuilder
+    DUP
+    ALOAD 1
+    INVOKESTATIC java/lang/String.valueOf(Ljava/lang/Object;)Ljava/lang/String;
+    INVOKESPECIAL java/lang/StringBuilder.<init>(Ljava/lang/String;)V
+    ALOAD 2
+    INVOKEVIRTUAL java/lang/StringBuilder.append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    ALOAD 3
+    INVOKEVIRTUAL java/lang/StringBuilder.append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    INVOKEVIRTUAL java/lang/StringBuilder.toString()Ljava/lang/String;
+    ASTORE 5
+// .. snip
+{% endhighlight %}
+
+So, is String.concat the best choice in terms of bytecode size?
 
 -teo
 
