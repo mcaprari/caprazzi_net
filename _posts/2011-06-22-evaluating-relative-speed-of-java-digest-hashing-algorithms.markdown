@@ -26,7 +26,7 @@ Test Complete.
 
 
 And code:
-{% highlight java%}
+{% highlight java %}
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -80,5 +80,6 @@ public class CompareHashFunctions {
 		return new BigInteger(130, random).toString(32);
 	}
 }
+{% endhighlight %}
 
 -teo
