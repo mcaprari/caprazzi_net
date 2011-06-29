@@ -25,4 +25,60 @@ Test Complete.
 </pre>
 
 
-And code:<pre name="code" class="java:nogutter">import java.math.BigInteger;import java.security.MessageDigest;import java.security.SecureRandom;public class CompareHashFunctions {private static SecureRandom random = new SecureRandom();public static void main(String[] args) throws Exception {int runs = 10000000;System.out.print("Creating " + runs + " random strings... ");String salt = randomString();String[] strings = new String[runs];for (int i=0; i&lt;strings.length; i++) {strings[i] = randomString();}System.out.println("Created. ");runTest(salt, strings, "MD2");runTest(salt, strings, "MD5");runTest(salt, strings, "SHA-1");runTest(salt, strings, "SHA-256");runTest(salt, strings, "SHA-384");runTest(salt, strings, "SHA-512");System.out.println("Test Complete.");}static void runTest(String salt, String[] strings, String algo) throws Exception {System.out.print("Testing algo " + algo + "...\t");MessageDigest instance = MessageDigest.getInstance(algo);long start = System.nanoTime();for (int i=0; i&lt;strings.length; i++) {byte[] bytes = (salt + strings[i]).getBytes("UTF-8");MessageDigest clone = (MessageDigest)instance.clone();new String(clone.digest(bytes));}long elapsed = (System.nanoTime() - start) / 1000000;System.out.println("Completed in " + elapsed +  " milliseconds ");}/** * Random string * @return a random string of 25 or 26 chars */static String randomString() {// 130 bit random integer converted to string in base 32return new BigInteger(130, random).toString(32);}}</pre>
+And code:
+{% highlight java%}
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.SecureRandom;
+
+public class CompareHashFunctions {
+
+	private static SecureRandom random = new SecureRandom();
+
+	public static void main(String[] args) throws Exception {
+
+		int runs = 10000000;				
+
+		System.out.print("Creating " + runs + " random strings... ");
+		String salt = randomString();
+		String[] strings = new String[runs];
+		for (int i=0; i<strings.length; i++) {
+			strings[i] = randomString();
+		}
+
+		System.out.println("Created. ");	
+
+		runTest(salt, strings, "MD2");
+		runTest(salt, strings, "MD5");
+		runTest(salt, strings, "SHA-1");
+		runTest(salt, strings, "SHA-256");
+		runTest(salt, strings, "SHA-384");
+		runTest(salt, strings, "SHA-512");		
+
+		System.out.println("Test Complete.");
+	}
+
+	static void runTest(String salt, String[] strings, String algo) throws Exception {
+		System.out.print("Testing algo " + algo + "...\t");
+		MessageDigest instance = MessageDigest.getInstance(algo);
+		long start = System.nanoTime();
+		for (int i=0; i<strings.length; i++) {
+			byte[] bytes = (salt + strings[i]).getBytes("UTF-8");
+			MessageDigest clone = (MessageDigest)instance.clone();
+			new String(clone.digest(bytes));
+		}
+		long elapsed = (System.nanoTime() - start) / 1000000;
+		System.out.println("Completed in " + elapsed +  " milliseconds ");
+	}		
+
+	/**
+	 * Random string
+	 * @return a random string of 25 or 26 chars
+	 */
+	static String randomString() {
+		// 130 bit random integer converted to string in base 32
+		return new BigInteger(130, random).toString(32);
+	}
+}
+
+-teo

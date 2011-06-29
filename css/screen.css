@@ -196,6 +196,9 @@ line-height: 6px;
     border: 1px solid black;
     background-color: #333;
     color: white;
+    font-size: 70%;
+   font-weight: normal;
+   font-family: droid-sans-mono;
   }
 
   #post pre.terminal code {
