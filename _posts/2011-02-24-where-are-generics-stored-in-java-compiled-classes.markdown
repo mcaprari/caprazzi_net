@@ -9,7 +9,9 @@ I was having a go at learning some Java bytecode and started looking at how gene
 
 Straight from the docs:
 
-<blockquote> When a generic type is instantiated, the compiler translates those types by a technique called&nbsp;_type erasure_ — a process where **the compiler removes all information related to type parameters and type arguments** within a class or method. Type erasure enables Java applications that use generics to maintain binary compatibility with Java libraries and applications that were created before generics. [via](http://download.oracle.com/javase/tutorial/java/generics/erasure.html) </blockquote>
+<blockquote> When a generic type is instantiated, the compiler translates those types by a technique called&nbsp;_type erasure_ — a process where **the compiler removes all information related to type parameters and type arguments** 
+within a class or method. Type erasure enables Java applications that use generics to maintain binary compatibility with Java libraries and applications that were created before generics. 
+<br/> [via](http://download.oracle.com/javase/tutorial/java/generics/erasure.html) </blockquote>
 
 But sure not ALL information about the type parameters is lost. That would mean that once I compile my code, all other developer would use it "the old way", with casts and all, but clearly this is not the case. Let's write two simple classes:
 
@@ -27,10 +29,11 @@ public class learn.GenericClass extends java.lang.Object{
 public learn.GenericClass();
   Code:
    0:   aload_0
-   1:   invokespecial   #8; //Method java/lang/Object."<init>":()V
+   1:   invokespecial   #8; //Method java/lang/Object."&lt;init>":()V
    4:   return
 }
 </pre>
+
 
 <pre class="terminal">
 $ javap  -c StandardClass
@@ -39,7 +42,7 @@ public class learn.StandardClass extends java.lang.Object{
 public learn.StandardClass();
   Code:
    0:   aload_0
-   1:   invokespecial   #8; //Method java/lang/Object."<init>":()V
+   1:   invokespecial   #8; //Method java/lang/Object."&lt;init>":()V
    4:   return
 }
 </pre>
@@ -61,6 +64,7 @@ const #1 = class        #2;     //  learn/StandardClass
 const #15 = Asciz       StandardClass.java;
 // ... snip
 </pre>
+
 
 <pre class="terminal">
 $ javap -verbose GenericClass
