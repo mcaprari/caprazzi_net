@@ -71,7 +71,10 @@ Generates this - see how the two concatenation styles lead to the very same byte
 The compiler has transformed "cip+ciop" into "new StringBuilder(cip).append(ciop).toString()". 
 In other words, **"+" is effectively a shorthand for the more verbose ``StringBuilder`` idiom.**
 
-(btw, this is documented in [String javacode](http://download.oracle.com/javase/1.4.2/docs/api/java/lang/String.html))
+Update:
+Javadoc for [java 1.4]((http://download.oracle.com/javase/1.4.2/docs/api/java/lang/String.html)) says "String concatenation is implemented through the StringBuffer class and its append method" 
+While in [java 1.5](http://download.oracle.com/javase/1,5.0/docs/api/java/lang/String.html) it's "String concatenation is implemented through the StringBuilder(or StringBuffer) 
+class and its append method" It actually makes sense, as StringBuilder was introduced in 1.5 as a faster (non thread-safe) version of StringBuffer.
 
 The compiler will do same trick for cip + "ciop" and "cip" + ciop. (In case you wonder, "cip" + "ciop" will just be compiled as "cipciop").
 
