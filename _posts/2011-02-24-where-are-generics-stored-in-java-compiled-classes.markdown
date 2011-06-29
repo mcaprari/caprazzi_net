@@ -34,7 +34,7 @@ public learn.GenericClass();
 }
 </pre>
 
-
+<br/>
 <pre class="terminal">
 $ javap  -c StandardClass
 Compiled from "StandardClass.java"
@@ -64,7 +64,7 @@ const #1 = class        #2;     //  learn/StandardClass
 const #15 = Asciz       StandardClass.java;
 // ... snip
 </pre>
-
+<br/>
 
 <pre class="terminal">
 $ javap -verbose GenericClass
