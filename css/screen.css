@@ -23,8 +23,8 @@ blockquote {
 
 body {
   background-color: white;
-  font: 15px helvetica, arial, clean, sans-serif;
-font-family: adobe-garamond-pro;
+  font: 15px adobe-garamond-pro, helvetica, arial, clean, sans-serif;
+  font-family: adobe-garamond-pro;
   *font-size: small;
   text-align: center;
 }
@@ -181,7 +181,9 @@ ul.posts {
     line-height: 6px;
   }
 
-
+#post code, #post pre {
+	font: 10px droid-sans-mono,sans-serif;
+}
 #post code * {
 line-height: 6px;
 }
@@ -195,10 +197,8 @@ line-height: 6px;
   #post pre.terminal {
     border: 1px solid black;
     background-color: #333;
-    color: white;
-    font-size: 70%;
-   font-weight: normal;
-   font-family: droid-sans-mono;
+   	color: white;
+   	font-weight: normal;   
   }
 
   #post pre.terminal code {
