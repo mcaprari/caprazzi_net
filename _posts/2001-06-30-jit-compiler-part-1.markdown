@@ -31,7 +31,7 @@ public static void main(String[] args) {
 	long end = System.nanoTime();										
 	System.out.println("completed in " + (end-start) + " nanoseconds ");		
 }	
-{% endhightlight %}
+{% endhighlight %}
 
 And a simple script that executes that executes the code alternatively with the JIT on and OFF:
 {% highlight bash %}
