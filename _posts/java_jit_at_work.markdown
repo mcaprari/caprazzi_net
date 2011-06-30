@@ -2,7 +2,7 @@
 layout: post
 title: What would the JIT compiler do?
 date: 2011-06-30 18:00:39 +00:00
-published: false
+hide: true
 excerpt: | an exploration of the Java JIT compiler and its effect on performace
 ---
 
