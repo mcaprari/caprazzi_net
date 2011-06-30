@@ -6,6 +6,7 @@ hide: true
 ---
 
 What is the Java JIT compiler? How does it affect my programs? Should I care?
+I've looked for answers to this questions and this is what I found.
 
 ## The JIT is in
 
