@@ -96,7 +96,7 @@ windows vista (java version: <s>sun</s> oracle 6.0.26, client VM, 32 bit)
 
 Let's see what happens when we run it on
 
-### - a scruffy linux virtual machine (as in "vmware") (OpenJDK 6 client VM 32 bit 6.0.20)
+* A scruffy linux virtual box, java OpenJDK 6 client VM 32 bit 6.0.20
 
 <pre class="terminal">
 Run 50000000 times with JIT ON...       completed in 17990143548 nanoseconds
@@ -104,7 +104,8 @@ Run 50000000 times with JIT OFF...      completed in 27172812381 nanoseconds
 </pre>
 Boooo - that's just 1.5 times faster! 
 
-### - a different linux virtual machine (oracle 6.0.20, server VM, 64 bit)
+* A different linux virtual box, java oracle 6.0.20, server VM, 64 bit
+
 <pre class="terminal">
 Run 50000000 times with JIT ON...       completed in 305513000 nanoseconds
 Run 50000000 times with JIT OFF...      completed in 2135685000 nanoseconds
@@ -112,7 +113,8 @@ Run 50000000 times with JIT OFF...      completed in 2135685000 nanoseconds
 
 Mhhhh - 7 times faster.
 
-### - 1997 Mac Pro, oracle 6.0.24, server VM, 64 bit
+* A 1997 Mac Pro, oracle 6.0.24, server VM, 64 bit
+
 <pre class="terminal">
 Run 50000000 times with JIT ON...       completed in 435386000 nanoseconds
 Run 50000000 times with JIT OFF...      completed in 1844200000 nanoseconds	
@@ -120,8 +122,109 @@ Run 50000000 times with JIT OFF...      completed in 1844200000 nanoseconds
 
 That's 4 times faster.
 
+Ok, so there is a definite but very variable performance loss in handling floats and array when turning off the JIT.
 
-Ok, so there is a definite but very variable performance loss when turning off the JIT.
+## Let's try with strings
+
+{% highlight java %}
+String s = "0";
+for (int i=0; i < count; i++) {
+	s += "0";
+}
+s.charAt(0);
+{% endhighlight %}
+
+* Windows Vista, intel cpu, java client VM 6.0.26: **no difference**
+
+<pre class="terminal">
+Run 50000 times with JIT ON...  completed in 1859603439 nanoseconds
+Run 50000 times with JIT OFF... completed in 1832164432 nanoseconds
+</pre>
+
+* linux virtual box, java 6.0.20, server vm 64 bit, **1.4x**
+
+<pre class="terminal">
+Run 50000 times with JIT ON...  completed in 1362850000 nanoseconds
+Run 50000 times with JIT OFF... completed in 2003949000 nanoseconds
+</pre>
+
+Magic magic magic
+
+## The JIT can speak
+
+``-XX:-PrintCompilation`` is option to the Oracle's VM supports that makes the jit output some information on what it compiles a method
+
+If we execute our test 1000 times, we see no output:
+<pre class="terminal">
+$ java -XX:+PrintCompilation -cp bin net.caprazzi.WWJD 1 ON
+Run 1 times with JIT ON...      completed in 23000 nanoseconds	
+</pre>
+
+I've incremented the size of the test loop until at 3250 iterations we start seeing some output:
+<pre class="terminal">
+$ java -XX:+PrintCompilation -cp bin net.caprazzi.WWJD 4000 ON
+Run 4000 times with JIT ON...   ---   n   java.lang.System::arraycopy (static)
+completed in 40601000 nanoseconds
+</pre>
+
+At 4500 iteration, more output:
+<pre class="terminal">
+	n   java.lang.System::arraycopy (static)
+    1	java.lang.Object::<init> (1 bytes)
+</pre>
+
+At 5000
+<pre class="terminal">
+	n   java.lang.System::arraycopy (static)
+	1       java.lang.Object::<init> (1 bytes)
+	2       java.lang.String::getChars (66 bytes)
+	3       java.lang.AbstractStringBuilder::append (60 bytes)
+	4       java.lang.StringBuilder::append (8 bytes)
+</pre>
+
+10000:
+
+<pre class="terminal">
+	n   java.lang.System::arraycopy (static)
+	1       java.lang.Object::<init> (1 bytes)
+	2       java.lang.String::getChars (66 bytes)
+	3       java.lang.AbstractStringBuilder::append (60 bytes)
+	4       java.lang.StringBuilder::append (8 bytes)
+	5       java.lang.Math::min (11 bytes)
+	6       java.lang.String::<init> (72 bytes)
+	7       java.util.Arrays::copyOfRange (63 bytes)
+	8       java.lang.AbstractStringBuilder::<init> (12 bytes)
+	9       java.lang.StringBuilder::toString (17 bytes)
+	10       java.lang.String::valueOf (14 bytes)
+	11       java.lang.StringBuilder::<init> (18 bytes)
+</pre>
+
+And finally, at 15000 the most verbose we get
+<pre class="terminal">
+	n   java.lang.System::arraycopy (static)
+	1       java.lang.Object::<init> (1 bytes)
+	2       java.lang.String::getChars (66 bytes)
+	3       java.lang.AbstractStringBuilder::append (60 bytes)
+	4       java.lang.StringBuilder::append (8 bytes)
+	5       java.lang.Math::min (11 bytes)
+	6       java.lang.String::<init> (72 bytes)
+	7       java.util.Arrays::copyOfRange (63 bytes)
+	8       java.lang.AbstractStringBuilder::<init> (12 bytes)
+	9       java.lang.StringBuilder::toString (17 bytes)
+	10       java.lang.String::valueOf (14 bytes)
+	11       java.lang.StringBuilder::<init> (18 bytes)
+	12       java.lang.String::toString (2 bytes)
+	1%      net.caprazzi.WWJD::main @ 59 (133 bytes)
+</pre>
+
+This neatly shows how jit compilation happens
+
+
+
+
+
+
+
 
 Ok we get that, but what kind of optimization is going on here? How is the time being saved? I have no idea.
 
