@@ -162,9 +162,9 @@ Magic magic magic
 
 ## The JIT can speak
 
-``-XX:-PrintCompilation`` is option to the Oracle's VM supports that makes the jit output some information on what it compiles a method. This allows to see how the JIT intervenes differently on each run of the same program.
+``-XX:-PrintCompilation`` is an option to the Oracle's VM supports that makes the jit output some information on what it compiles a method. This allows to see how the JIT intervenes differently on each run of the same program.
 
-If we execute our test 1000 times, we see no output:
+If we execute our test 1 time, we see no output:
 <pre class="terminal">
 $ java -XX:+PrintCompilation -cp bin net.caprazzi.WWJD 1 ON
 Run 1 times with JIT ON...      completed in 23000 nanoseconds	
@@ -172,7 +172,7 @@ Run 1 times with JIT ON...      completed in 23000 nanoseconds
 
 I've incremented the size of the test loop until at 3250 iterations we start seeing some output:
 <pre class="terminal">
-$ java -XX:+PrintCompilation -cp bin net.caprazzi.WWJD 4000 ON
+$ java -XX:+PrintCompilation -cp bin net.caprazzi.WWJD 3250 ON
 Run 4000 times with JIT ON...   ---   n   java.lang.System::arraycopy (static)
 completed in 40601000 nanoseconds
 </pre>
