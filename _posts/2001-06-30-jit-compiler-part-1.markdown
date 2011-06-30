@@ -2,7 +2,6 @@
 layout: post
 title: Getting to know the Java JIT compiler
 date: 2011-06-30 18:00:39 +00:00
-hide: true
 ---
 
 What is the Java JIT compiler? How does it affect my programs? Should I care?
