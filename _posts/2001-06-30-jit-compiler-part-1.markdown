@@ -92,7 +92,7 @@ Sweet, here the optimized version is 80 times faster.
 ## Always always faster faster?
 
 This code was tested on an laptop with an intel multicore processor and
-windows vista (java version: <s>sun</s> oracle 6.0.26, client VM, 32 bit)
+windows 7 (java version: <s>sun</s> oracle 6.0.26, client VM, 32 bit)
 
 Let's see what happens when we run it on
 
@@ -134,7 +134,7 @@ for (int i=0; i < count; i++) {
 s.charAt(0);
 {% endhighlight %}
 
-* Windows Vista, intel cpu, java client VM 6.0.26: **no difference**
+* Windows 7, intel cpu, java client VM 6.0.26: **no difference**
 
 <pre class="terminal">
 Run 50000 times with JIT ON...  completed in 1859603439 nanoseconds
