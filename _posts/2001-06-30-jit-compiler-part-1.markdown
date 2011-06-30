@@ -3,16 +3,26 @@ layout: post
 title: Getting to know the Java JIT compiler
 date: 2011-06-30 18:00:39 +00:00
 hide: true
-excerpt: | an exploration of the Java JIT compiler and how it affects performace
 ---
+
+What is the Java JIT compiler? How does it affect my programs? Should I care?
+
+## The JIT is in
 
 Most java VMs have a built in Just In Time compiler ("the JIT").
 
-The JIT analyzes the behaviour of a program while it runs and looks for opportunities to optimize the bytecode and re-compile it to machine code using the most appropriate native instruction. All mainstream java VMs have a JIT compiler and you would not want to use one without.
+The JIT analyzes the behaviour of a program while it runs and looks for 
+opportunities to optimize the bytecode and re-compile it to machine code using 
+the most appropriate native instruction. All mainstream java VMs have a JIT 
+compiler and you can bet that all your java programs are using it right now.
 
-This is awesome and magical and very opaque and the gains will be different on different machines, VMs and configurations. The JIT is on by default, but it can be disabled using ``-Djava.compiler=none``
+The JIT is awesome and magical and very opaque and the gains will be different 
+on different machines, VMs and configurations. 
 
-Because it is opaque and unpredictable, it is a bad idea to rely on the JIT for the performance of a program. Still, it is interesting to see it at work.
+The JIT is on by default, but it can be disabled using ``-Djava.compiler=none``
+
+Because it is opaque and unpredictable, it is generally a bad idea to rely on 
+it for the performance of a program. Still, it is interesting to see it at work.
 
 ## But is it faster?
 
