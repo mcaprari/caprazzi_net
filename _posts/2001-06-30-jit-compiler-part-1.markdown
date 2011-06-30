@@ -6,18 +6,24 @@ hide: true
 excerpt: | an exploration of the Java JIT compiler and its effect on performace
 ---
 
-After reading a comment to a previous post, I realised that I know next to 
-nothing about the java JIT compiler ("the JIT"), and yet I use it all the times. 
+Most java VMs have a built in Just In Time compiler ("the JIT")
 
-In short, the JIT analyzes the behviour or a program at runtime and finds opportunities to optimize the bytecode and re-compile it to machine code. This is awesome and magical and very opaque and may have different results on different machines (and maybe each time on the same machine depending on load or the environment in general?). The JIT is on by default, but can be disabled using  ``-Djava.compiler=none``
+In short, the JIT analyzes the behviour of a program while it runs and finds opportunities to optimize the bytecode and re-compile it to machine code using the most appropriate instruction set. All mainstream java VMs have a JIT compiler and you would not want to use one without.
 
-Because it is opaque and unpredictable, it is a bad idea to rely on the JIT for the performance of a program. But how do I know that my program is not actually going very fast on my enviroment  thanks to the JIT and will not perform badly on the target machine? Worse even, what if when deployed the program goes from acceptably fast to unacceptably slow?
+This is awesome and magical and very opaque and the gains will be different on different machines, VMs and configurations. The JIT is on by default, but can be disabled using  ``-Djava.compiler=none``
+
+Because it is opaque and unpredictable, it is a bad idea to rely on the JIT for the performance of a program. Still, it is interesting to see it at work.
 
 ## But is it faster?
 
 Let's first work out if this JIT optimization works at all.
 
-A simple class that does some float multiplcations
+I just added ``-Djava.compiler=none`` to my eclipse.ini and restarted it. Itfeels slower on "big operations" like clean & rebuild all or searching for the string "this" in all java files in the workspace. 
+
+That's good but very difficult to measure.
+
+This is simple class that does some float multiplcations
+
 {% highlight java %}
 public static void main(String[] args) {		
 	int  count = Integer.parseInt(args[0]);		
@@ -33,7 +39,7 @@ public static void main(String[] args) {
 }	
 {% endhighlight %}
 
-And a simple script that executes that executes the code alternatively with the JIT on and OFF:
+And this is a simple script that executes the code alternatively with the JIT ON and OFF:
 {% highlight bash %}
 COUNT=50000000
 for i in $(seq 5); do
@@ -43,7 +49,7 @@ for i in $(seq 5); do
 done
 {% endhighlight %}
 
-At the first execution it's clear that there with the JIT on, the execution is reliably 50 times faster: 
+It's immediately clear that with the JIT on, the execution is reliably 50 times faster: 
 <pre class="terminal">
 $ sh test.sh
 1-----
@@ -63,7 +69,7 @@ Run 50000000 times with JIT ON...       completed in 157337479 nanoseconds
 Run 50000000 times with JIT OFF...      completed in 8738365122 nanoseconds
 </pre>
 
-Cool. Let's make the code a bit more interesting:
+Cool. Let's change the code a bit and try again:
 
 {% highlight java %}
 float[] floats = new float[count];
@@ -74,7 +80,7 @@ for (int i=1; i < count; i++) {
 }
 {% endhighlight %}
 
-And try again:
+<br/>
 
 <pre class="terminal">
 Run 50000000 times with JIT ON...       completed in 102871363 nanoseconds
@@ -112,10 +118,10 @@ Run 50000000 times with JIT ON...       completed in 435386000 nanoseconds
 Run 50000000 times with JIT OFF...      completed in 1844200000 nanoseconds	
 </pre>
 
-4 times faster with JIT
+That's 4 times faster.
 
 
-Ok, so there is a definite but very variable performance gain when using the JIT. To be fair with the
+Ok, so there is a definite but very variable performance loss when turning off the JIT.
 
 Ok we get that, but what kind of optimization is going on here? How is the time being saved? I have no idea.
 
