@@ -63,7 +63,7 @@ Run 50000000 times with JIT ON...       completed in 157337479 nanoseconds
 Run 50000000 times with JIT OFF...      completed in 8738365122 nanoseconds
 </pre>
 
-Cool. Let's make the code a bit more interesting and try again:
+Cool. Let's make the code a bit more interesting:
 
 {% highlight java %}
 float[] floats = new float[count];
@@ -74,6 +74,8 @@ for (int i=1; i < count; i++) {
 }
 {% endhighlight %}
 
+And try again:
+
 <pre class="terminal">
 Run 50000000 times with JIT ON...       completed in 102871363 nanoseconds
 Run 50000000 times with JIT OFF...      completed in 9154895167 nanoseconds
@@ -81,7 +83,7 @@ Run 50000000 times with JIT OFF...      completed in 9154895167 nanoseconds
 
 Sweet, here the optimized version is 80 times faster.
 
-## Always always faster?
+## Always always faster faster?
 
 This code was tested on an laptop with an intel multicore processor and
 windows vista (java version: <s>sun</s> oracle 6.0.26, client VM, 32 bit)
@@ -110,10 +112,7 @@ Run 50000000 times with JIT ON...       completed in 435386000 nanoseconds
 Run 50000000 times with JIT OFF...      completed in 1844200000 nanoseconds	
 </pre>
 
-4 times faster with JID
-
-
-
+4 times faster with JIT
 
 
 Ok, so there is a definite but very variable performance gain when using the JIT. To be fair with the
