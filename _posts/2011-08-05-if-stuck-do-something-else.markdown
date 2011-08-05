@@ -45,6 +45,6 @@ Well, _now_ you _have_ the time, so get to it. With some luck you'll get into it
 and cycle up to higher activity level. Once you get there, you'll naturally pick
 up your other stuff.
 
-This works for me every time, I hope someone else can benefit from it.
+Do you suffer from SMS? Do you have an exit strategy?
 
 -teo
