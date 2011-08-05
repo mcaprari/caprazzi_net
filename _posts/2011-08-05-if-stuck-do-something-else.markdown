@@ -1,21 +1,22 @@
 ---
 layout: post
-title: Sick with Slow Motion Syndrome?
+title: The Slow Motion Syndrome
 date: 2011-08-05 00:00:01 +00:00
 published: true
 ---
 
-Some days it's hard to focus, todo lists grow long, emails go unread and the 
+Some days it's hard to focus, to-do lists grow long, emails go unread and the 
 ours slowly go by. I call it the Slow Motion Syndrome.
 
 Maybe you have had it too sometimes: you slow down for some reason 
-and slip to a low point from where you can't climb  out. Stuff accumulates, 
+and slip to a low point from where you can't climb out. Stuff accumulates, 
 catching up becomes difficult and you end up short of breath and nothing much done.
 
-If I feel like that for more than a few days, it tends to stick.
+While it's ok to have few slow days, if it goes on for some time, it gets really 
+difficult to shake it off.
 
-I have not found a way to prevent it, but I have developed a strategy to get back
-on track.
+I have not found a way to prevent it, but I have developed  a strategy 
+to get back on track.
 
 # 1: Today I'm useless and I have to live with that
 
@@ -44,4 +45,6 @@ Well, _now_ you _have_ the time, so get to it. With some luck you'll get into it
 and cycle up to higher activity level. Once you get there, you'll naturally pick
 up your other stuff.
 
-Hope this helps.
+This works for me every time, I hope someone else can benefit from it.
+
+-teo
